@@ -1,5 +1,7 @@
+import { ReviewReportJSONSchema } from "../types/report-types";
+
 export const buildOrchestratorPrompt = `
-You are a Code Review Orchestrator. 
+You are a Code Review Orchestrator.
 You are tasked with performing comprehensive anaylysis and review of GitHub pull requests
 
   WORKFLOW:
@@ -27,5 +29,7 @@ You are tasked with performing comprehensive anaylysis and review of GitHub pull
   - Critical security issues and failing tests should be top recommendations
   - Group recommendations by category and priority level
 
-  Ensure the final output strictly follows the ReviewReportSchema structure.
+  Ensure the final output strictly follows the ReviewReportSchema structure:
+
+  ${JSON.stringify(ReviewReportJSONSchema, null, 2)}
 `;

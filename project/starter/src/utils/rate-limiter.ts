@@ -144,13 +144,11 @@ export class RateLimiter {
    * and there's a queued waiter.
    */
   private async waitForSlot(): Promise<void> {
-    // TODO: Implement waitForSlot
-    // Hint: Create a new Promise and add its resolve function to waitQueue
-    // The resolve function will be called by release()
-
-    return new Promise<void>(resolve =>{
-      this.waitQueue.push(resolve);
-    });
+    while (this.activeRequests >= this.config.maxConcurrent) {
+      await new Promise<void>(resolve => {
+        this.waitQueue.push(resolve);
+      });
+    }
   }
 
   /**
